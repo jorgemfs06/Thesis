@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+
+
+
+<node type="point_cloud2_assembler" pkg="laser_assembler"  name="pcl_assembler_server">
+<remap from="cloud" to="laserPointCloud"/>
+<param name="max_clouds" type="int" value="15000" />
+<param name="fixed_frame" type="string" value="odom" />
+</node>
+
+</launch>

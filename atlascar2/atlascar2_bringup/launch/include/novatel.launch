@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Node novatel position commands-->
+    <node name="novatel_position" pkg="nodelet" type="nodelet" args="standalone novatel_gps_driver/novatel_gps_nodelet">
+    <rosparam>
+      connection_type: serial
+      device: /dev/ttyUSB0
+      publish_novatel_positions: true
+      publish_novatelgnss_positions: true
+      publish_imu_messages: false
+      publish_nmea_messages: true
+      publish_default_messages: true
+      publish_diagnostics: true
+      publish_novatel_velocity: true
+      frame_id: /gps
+    </rosparam>
+  </node>
+    <!-- Node novatel IMU -->
+  <node name="novatel_imu" pkg="nodelet" type="nodelet" args="standalone novatel_gps_driver/novatel_gps_nodelet">
+    <rosparam>
+      connection_type: serial
+      device: /dev/ttyUSB1
+      publish_novatel_positions: false
+      publish_novatelgnss_positions: false
+      publish_imu_messages: true
+      publish_nmea_messages: false
+      publish_default_messages: false
+      publish_diagnostics: true
+      frame_id: /gps
+    </rosparam>
+  </node>
+
+  <node pkg="swri_transform_util" type="gps_transform_publisher" name="gps_transform_publisher" output="screen"/>
+
+  <node pkg="swri_transform_util" type="imu_transform_publisher" name="imu_transform_publisher" output="screen"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="0 0 0 0 0 0 /world /map 100"/>
+
+
+  <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" output="screen">
+        <param name="local_xy_frame" value="/world"/>
+        <param name="local_xy_origin" value="auto"/>
+        <remap from="gps" to="/gps/fix"/>
+  </node>
+
+</launch>

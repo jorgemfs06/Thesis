@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+    <!-- Start the pointcloud_to_pcd node -->
+    <node pkg="pcl_ros" type="pointcloud_to_pcd" name="pointcloud_to_pcd" output="screen">
+        <remap from="input" to="/laser_pointcloud"/>
+        <param name="prefix" type="string" value="stockpile"/>
+        <param name="folder" type="string" value="/home/jorge/Volume_Calculation/src/data"/>
+    </node>
+</launch>
+

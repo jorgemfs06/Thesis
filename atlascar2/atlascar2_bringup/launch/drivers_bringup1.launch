@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+<!-- args to specify what sensor to launch -->
+    <arg name="lidar2d_left_bringup" default="true"/>
+    <arg name="lidar2d_right_bringup" default="false"/>
+    <arg name="lidar3d_bringup" default="false" />
+    <arg name="top_camera_right_bringup" default="false"/>
+    <arg name="top_camera_left_bringup" default="false"/>
+    <arg name="front_camera_bringup" default="false"/>
+    <arg name="RGBD_camera_bringup" default="false"/>
+    <arg name="novatel_bringup" default="true"/>
+
+<!--    left 2D laser -->
+   <group if="$(arg lidar2d_left_bringup)">
+        <include file="$(find atlascar2_bringup)/launch/include/laser2d_bringup.launch">
+            <arg name="name" value="left" />
+        </include>
+   </group>
+
+</launch>

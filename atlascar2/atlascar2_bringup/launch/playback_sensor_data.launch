@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--Plays back a system bag file-->
+<launch>
+    <!--full path to the bag file-->
+    <arg name="bag" default="none"/>
+    <arg name="rate" default=".3"/>
+    <arg name="bag_start" default="0"/>
+    <!--Parameters-->
+    <param name="/use_sim_time" value="true"/>
+    <!--uncompress images-->
+<!--    <node pkg="image_transport" type="republish" name="republish_frontal_camera" output="screen"-->
+<!--          args="compressed in:=/frontal_camera/image_color raw out:=/frontal_camera/image_color"/>-->
+    <node pkg="image_transport" type="republish" name="republish_top_right_camera" output="screen"
+          args="compressed in:=/top_right_camera/image_color raw out:=/top_right_camera/image_color"/>
+
+    <node pkg="image_transport" type="republish" name="republish_top_left_camera" output="screen"
+          args="compressed in:=/top_left_camera/image_color raw out:=/top_left_camera/image_color"/>
+    <node pkg="image_transport" type="republish" name="republish_top_center_rgbd_camera_image" output="screen"
+          args="compressed in:=/top_center_rgbd_camera/rgb/image_raw raw out:=/top_center_rgbd_camera/rgb/image_raw"/>
+    <node pkg="image_transport" type="republish" name="republish_top_center_rgbd_camera_depthimage" output="screen"
+          args="compressedDepth in:=/top_center_rgbd_camera/depth/image raw out:=/top_center_rgbd_camera/depth/image_raw"/>
+
+    <include file="$(find atlascar2_bringup)/launch/asus_xtion.launch">
+        <arg name="load_driver" value="false" />
+    </include>
+
+    <!-- Generate point cloud -->
+    <!-- To be swaped by launching the asus_xtion launch file with param load_drivers set to false-->
+    <!-- But that can only happen when we have a bag file with the depth/image_raw rather than depth/image-->
+<!--    <node pkg="depth_image_proc" type="point_cloud_xyz" name="top_center_rgbd_camera_point_cloud_xyz" output="screen">-->
+<!--        <remap from="camera_info" to="/top_center_rgbd_camera/depth/camera_info"/>-->
+<!--        <remap from="camera_info" to="/top_center_rgbd_camera/depth/image"/>-->
+<!--    </node>-->
+
+<!--     <node pkg="nodelet" type="nodelet" name="standalone_nodelet"  args="manager"/>-->
+
+<!--     <node pkg="nodelet" type="nodelet" name="top_center_rgbd_camera_point_cloud_xyz" args="load depth_image_proc/point_cloud_xyz standalone_nodelet">-->
+<!--         <remap from="camera_info" to="/top_center_rgbd_camera/depth/camera_info"/>-->
+<!--         <remap from="camera_info" to="/top_center_rgbd_camera/depth/image"/>-->
+<!--     </node>-->
+
+
+    <!--playback a bag file in visual mode
+    <node pkg="rqt_bag" type="rqt_bag" name="rqt_bag" output="screen" args=" $(arg bag)"/> -->
+    <!--playback a bag file-->
+    <!--<node pkg="rosbag" type="play" name="rosbag_play" output="screen" args=" $(arg bag) -l -s 30 -clock -r 1 -duration 12"/>-->
+<!--    <node pkg="rosbag" type="play" name="rosbag_play" output="screen"-->
+<!--          args=" /home/$(env USER)/Desktop/$(arg bag).bag &#45;&#45;clock -r $(arg rate) -l"/>-->
+
+    <!--<node pkg="rosbag" type="play" name="rosbag_play" output="screen"-->
+          <!--args=" $(arg bag) &#45;&#45;clock -r $(arg rate) -l -s 0"/>-->
+    <node pkg="rosbag" type="play" name="rosbag_play" output="screen"
+          args=" $(arg bag) --clock -r $(arg rate) -l -s $(arg bag_start) /tf:=/tf_dev_null /tf_static:=/tf_static_dev_null"/>
+
+
+</launch>

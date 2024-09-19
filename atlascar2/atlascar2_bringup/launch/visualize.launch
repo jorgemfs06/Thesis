@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="model_name" default=""/>
+
+    <node pkg="rviz" type="rviz" name="rviz" required="false" args="-d $(find atlascar2_bringup)/config/rviz$(arg model_name).rviz"/>
+    
+    <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="1.8575 0.76 0.37 0 0 1.5708 /base_link /left_laser 100"/>
+    
+    
+</launch>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="visualize" default="true" />
+    <arg name="lidar2d_left_bringup" default="true"/>
+    <arg name="lidar2d_right_bringup" default="false"/>
+    <arg name="lidar3d_bringup" default="false"/>
+    <arg name="top_camera_right_bringup" default="false"/>
+    <arg name="top_camera_left_bringup" default="false"/>
+    <arg name="front_camera_bringup" default="false"/>
+    <arg name="RGBD_camera_bringup" default="false"/>
+    <arg name="novatel_bringup" default="false"/>
+    <arg name="odom_bringup" default="true"/>
+
+
+    <include file="$(find atlascar2_bringup)/launch/drivers_bringup1.launch" >
+        <arg name="lidar2d_left_bringup" value="$(arg lidar2d_left_bringup)"/>
+    </include>
+
+    <include file="$(find atlascar2_bringup)/launch/model.launch" />
+
+    <!--Can configuration-->
+    <node pkg="socketcan_bridge" type="socketcan_to_topic_node" name="socketcan_to_topic_node">
+        <remap from="/received_messages" to="/can_messages"/> 
+    </node>
+
+    <group if="$(arg odom_bringup)">
+        <include file="$(find atlascar2_odom)/launch/odom_bringup.launch"/>
+    </group>
+
+    <group if="$(arg visualize)">
+        <include file="$(find atlascar2_bringup)/launch/visualize.launch"/>
+    </group>
+</launch>

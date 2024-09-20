@@ -3,7 +3,7 @@
 <launch>
 <node type="laser_scan_assembler" pkg="laser_assembler"
     name="my_assembler">
-<remap from="scan" to="/scan"/>
+<remap from="scan" to="/left_laser/scan"/>
 <param name="max_scans" type="int" value="20000" />
 <param name="fixed_frame" type="string" value="odom" />
  </node>

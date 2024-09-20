@@ -7,4 +7,5 @@
 <param name="max_scans" type="int" value="1000000" />
 <param name="fixed_frame" type="string" value="map" />
  </node>
+  <node type ="laser2pc.py" pkg="laser_to_pcl" name="laser2pc"/>
 </launch>

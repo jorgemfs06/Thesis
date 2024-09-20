@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 4.0.2 commit date:2023-12-05, commit time:07:41, hash:9be62e85b727</authoring_tool>
+    </contributor>
+    <created>2024-02-02T19:49:47</created>
+    <modified>2024-02-02T19:49:47</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_images/>
+  <library_geometries>
+    <geometry id="Part1_001-mesh" name="Part1.001">
+      <mesh>
+        <source id="Part1_001-mesh-positions">
+          <float_array id="Part1_001-mesh-positions-array" count="24">2000 3000 1000 2000 3000 2000 4000 3000 1000 4000 3000 2000 0 10e-5 3000 0 10e-5 1.19209e-4 6000 10e-5 3000 6000 10e-5 1.19209e-4</float_array>
+          <technique_common>
+            <accessor source="#Part1_001-mesh-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Part1_001-mesh-normals">
+          <float_array id="Part1_001-mesh-normals-array" count="30">0 1 0 0 -1 0 0 0.3162278 0.9486834 0 0.3162278 0.9486834 -0.8320503 0.5547002 0 -0.8320503 0.5547002 0 0.8320503 0.5547002 0 0.8320503 0.5547002 0 0 0.3162278 -0.9486834 0 0.3162277 -0.9486834</float_array>
+          <technique_common>
+            <accessor source="#Part1_001-mesh-normals-array" count="10" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Part1_001-mesh-vertices">
+          <input semantic="POSITION" source="#Part1_001-mesh-positions"/>
+        </vertices>
+        <triangles count="12">
+          <input semantic="VERTEX" source="#Part1_001-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Part1_001-mesh-normals" offset="1"/>
+          <p>0 0 1 0 2 0 2 0 1 0 3 0 4 1 5 1 6 1 6 1 5 1 7 1 1 2 4 2 3 2 3 3 4 3 6 3 0 4 5 4 1 4 1 5 5 5 4 5 3 6 6 6 2 6 2 7 6 7 7 7 2 8 7 8 0 8 0 9 7 9 5 9</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Part1" name="Part1" type="NODE">
+        <matrix sid="transform">0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 1</matrix>
+        <instance_geometry url="#Part1_001-mesh" name="Part1"/>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

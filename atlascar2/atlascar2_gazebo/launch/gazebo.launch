@@ -1,22 +1,21 @@
 <?xml version="1.0"?>
+<?xml version="1.0"?>
 <launch>
-    <!-- Creating a world in GAZEBO -->
+    <!-- Define the world_name argument with a default value -->
+    <arg name="world_name" default="stockpile.world"/>
 
-<!--    &lt;!&ndash; Including another launch file &ndash;&gt;-->
+    <!-- Include the Gazebo empty world launch file -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-
-<!--        &lt;!&ndash;        World from https://github.com/chaolmu/gazebo_models_worlds_collection&ndash;&gt;-->
-        <arg name="world_name" value="$(find atlascar2_gazebo)/worlds/stockpile.world"/>
-
+        <!-- Use the world_name argument to set the world file -->
+        <arg name="world_name" value="$(find atlascar2_gazebo)/worlds/$(arg world_name)"/>
 
         <arg name="paused" value="false"/>
         <arg name="use_sim_time" value="true"/>
         <arg name="gui" value="true"/>
         <arg name="headless" value="false"/>
         <arg name="debug" value="false"/>
-
     </include>
     
     <node name="interactive_pattern" pkg="atlascar2_gazebo" type="interactive_pattern" output="screen"/>
-
 </launch>
+
